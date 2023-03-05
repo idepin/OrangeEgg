@@ -205,9 +205,10 @@ GameObject:
   - component: {fileID: 5581795491646113519}
   - component: {fileID: 1966240419}
   - component: {fileID: 5547537902436794876}
+  - component: {fileID: 3792723664277994449}
   m_Layer: 0
   m_Name: EggyController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -340,6 +341,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1966240419}
+--- !u!114 &3792723664277994449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4735513827778997991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea08205626c327a4eb4dd2372b98fd4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCapacity: 3
+  items: []
 --- !u!1 &4759406399357215623
 GameObject:
   m_ObjectHideFlags: 0

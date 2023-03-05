@@ -2,17 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterInventory : MonoBehaviour
+public class CharacterInventory : Singleton<CharacterInventory>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int maxCapacity = 3;
+    public List<Item> items = new List<Item>();
+
+
+    public void AddItem(Item item)
     {
-        
+        if(items.Count >= maxCapacity)
+        {
+            return;
+        }
+        if (!items.Contains(item))
+        {
+            items.Add(item);
+            InventoryUI.Instance.AdditemUI(item);
+            Debug.Log("Item " + item.itemName + " Has been Added");
+        } 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RemoveItem(Item item)
     {
-        
+        if (items.Contains(item))
+        {
+            items.Remove(item);
+            InventoryUI.Instance.RemoveItemUI(item);
+            Debug.Log("Item " + item.itemName + " Has been Removed");
+        }
+    }
+
+    public bool Hasitem(Item item)
+    {
+        return items.Contains(item);
     }
 }
