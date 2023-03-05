@@ -9,13 +9,15 @@ public class CharacterInput : MonoBehaviour
     [SerializeField] private InputActionReference horizontalInput;
     [SerializeField] private InputActionReference sprintInput;
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float runSpeed = 10f;
     [SerializeField] private float rotateSpeed = 50f;
+
     private CharacterAnimator characterAnimator;
 
     private Rigidbody rb;
-    private Vector3 moveDirection = Vector3.zero;
 
     private float speed;
+    private float animatorSpeed;
 
     private void Start()
     {
@@ -30,21 +32,31 @@ public class CharacterInput : MonoBehaviour
             float moveHorizontal = horizontalInput.action.ReadValue<float>();
             float moveVertical = verticalInput.action.ReadValue<float>();
 
-            speed = 0.5f;
-
-            Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical).normalized;
-
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-
+            animatorSpeed = 0.5f;
+            Vector3 movement = new Vector3(moveVertical, 0, -moveHorizontal);
+            rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
             if (movement != Vector3.zero)
             {
-                transform.LookAt(transform.position + movement);
+                
+                Quaternion targetRotation = Quaternion.LookRotation(movement, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+
             }
             if (sprintInput.action.IsPressed())
             {
-                speed= 1.0f;
+                animatorSpeed= 1.0f;
+
+                speed = runSpeed;
+            }
+            else
+            {
+                speed = moveSpeed;
             }
         }
-        characterAnimator.SetAnimatorSpeed(speed);
+        else
+        {
+            animatorSpeed = 0.0f;
+        }
+        characterAnimator.SetAnimatorSpeed(animatorSpeed);
     }
 }
