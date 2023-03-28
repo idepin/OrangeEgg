@@ -39,12 +39,12 @@ public class CharacterController : MonoBehaviour
         Move();
     }
 
-    void GatherInput()
+    private void GatherInput()
     {
         input = new Vector3(horizontalInput.action.ReadValue<float>(), 0, verticalInput.action.ReadValue<float>());
     }
 
-    void Look()
+    private void Look()
     {
         if (input != Vector3.zero)
         {
@@ -55,13 +55,13 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    void Move()
+    private void Move()
     {
         float currentSpeed = sprintInput.action.ReadValue<float>() > 0 ? runSpeed : walkSpeed;
         rb.MovePosition(transform.position + (transform.forward * input.magnitude) * currentSpeed * Time.deltaTime);
     }
 
-    void UpdateAnimatorSpeed()
+    private void UpdateAnimatorSpeed()
     {
         if (input.magnitude > 0)
         {
