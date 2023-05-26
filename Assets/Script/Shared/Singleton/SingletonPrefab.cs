@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class SingletonPrefab<T> : MonoBehaviour where T : MonoBehaviour
 {
+    #region Fields
+
     private static T _instance;
+
+    #endregion
+
+    #region Properties
 
     public static T Instance
     {
@@ -20,6 +26,10 @@ public class SingletonPrefab<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Methods
+
     private static T GetFromResources()
     {
         T instance = Resources.Load<T>(typeof(T).FullName);
@@ -28,13 +38,14 @@ public class SingletonPrefab<T> : MonoBehaviour where T : MonoBehaviour
         {
             return Instantiate(instance, parent.transform);
         }
-        else
-        {
-            parent = new GameObject("(Instances)");
-            return Instantiate(instance, parent.transform);
-        }
         
+        parent = new GameObject("(Instances)");
+        return Instantiate(instance, parent.transform);
     }
+
+    #endregion
+
+    #region Build-in Methods
 
     private void Awake()
     {
@@ -43,4 +54,6 @@ public class SingletonPrefab<T> : MonoBehaviour where T : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    #endregion
 }

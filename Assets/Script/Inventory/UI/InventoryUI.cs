@@ -1,13 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryUI : Singleton<InventoryUI>
 {
+    #region Fields
+
     [SerializeField] private Transform itemContainer;
+    
     [SerializeField] private ItemUI itemUIPrefab;
 
-    public void AdditemUI(Item item)
+    #endregion
+
+    #region Methods
+
+    public void AddItemUI(Item item)
     {
         ItemUI itemUI = Instantiate(itemUIPrefab, itemContainer);
         itemUI.itemName = item.name;
@@ -18,11 +23,10 @@ public class InventoryUI : Singleton<InventoryUI>
     {
         foreach(Transform itemUI in itemContainer)
         {
-            if(itemUI.GetComponent<ItemUI>().name == item.name)
-            {
-                Destroy(itemUI);
-                break;
-            }
+            if (itemUI.GetComponent<ItemUI>().name != item.name) continue;
+            
+            Destroy(itemUI);
+            break;
         }
     }
     
@@ -33,4 +37,6 @@ public class InventoryUI : Singleton<InventoryUI>
             Destroy(itemUI);
         }
     }
+
+    #endregion
 }
